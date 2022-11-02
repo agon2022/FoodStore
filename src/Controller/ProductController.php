@@ -194,6 +194,11 @@ public function addCart(Product $product, Request $request)
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
         $user = $this->getUser();
+        $checkUser = $this->isGranted('ROLE_SELLER');
+        if (!$checkUser)
+        {
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+        }  
         if ($form->isSubmitted() && $form->isValid()) {
             $productImg = $form->get('Image')->getData();
             $product->setPublisher($user);
@@ -240,7 +245,12 @@ public function addCart(Product $product, Request $request)
     {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
-        $this->denyAccessUnlessGranted('ROLE_CUSTOMER');
+        $this->denyAccessUnlessGranted('ROLE_SELLER');
+        $checkUser = $this->isGranted('ROLE_SELLER');
+        if (!$checkUser)
+        {
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+        }  
         if ($form->isSubmitted() && $form->isValid()) {
             $productRepository->add($product, true);
 
