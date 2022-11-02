@@ -145,7 +145,7 @@ public function addCart(Product $product, Request $request)
     //Create new Order and fill info for it. (Skip Total temporarily for now)
     $order = new Order();
     date_default_timezone_set('Asia/Ho_Chi_Minh');
-    $order->setPurchaseDate(new \DateTime());
+    $order->setOrderDate(new \DateTime());
     /** @var \App\Entity\User $user */
     $user = $this->getUser();
     $order->setUser($user);
@@ -157,7 +157,7 @@ public function addCart(Product $product, Request $request)
     $product = $productRepository->find($product_id);
     //create each Order Detail
     $orderDetail = new OrderDetail();
-    $orderDetail->setOrders($order);
+    $orderDetail->setOrd($order);
     $orderDetail->setProduct($product);
     $orderDetail->setQuantity($quantity);
     $orderDetailRepository->add($orderDetail);
