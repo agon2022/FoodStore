@@ -17,6 +17,11 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
+        $checkUser = $this->isGranted('ROLE_SELLER');
+        if (!$checkUser)
+        {
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+        }  
         return parent::index();
     }
 

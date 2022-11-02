@@ -46,9 +46,9 @@ class Product
     private $orderDetails;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="products")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="product")
      */
-    private $User;
+    private $Publisher;
 
     public function __construct()
     {
@@ -138,14 +138,14 @@ class Product
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getPublisher(): ?User
     {
-        return $this->User;
+        return $this->Publisher;
     }
 
-    public function setUser(?User $User): self
+    public function setPublisher(?User $Publisher): self
     {
-        $this->User = $User;
+        $this->Publisher = $Publisher;
 
         return $this;
     }

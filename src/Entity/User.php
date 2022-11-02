@@ -64,10 +64,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $products;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="Publisher")
+     */
+    private $product;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
         $this->products = new ArrayCollection();
+        $this->product = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -253,5 +259,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProduct(): Collection
+    {
+        return $this->product;
     }
 }
